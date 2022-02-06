@@ -65,7 +65,7 @@ const Todo = (props: TodoInterface) => {
       <div className="flex">
         <DeleteTodo id={id} />
         <img
-          src="./icon/edit.png"
+          src="./static/edit.png"
           alt="trash2"
           className="icon"
           onClick={() => setModal(true)}

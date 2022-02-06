@@ -6,7 +6,7 @@ const DeleteTodo = ({ id }) => {
   const dispatch = useDispatch()
   return (
     <img
-      src="./icon/trash.png"
+      src="./static/trash.png"
       alt="trash2"
       className="icon"
       onClick={() => dispatch(removeTodo({ id }))}

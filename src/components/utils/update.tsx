@@ -8,7 +8,7 @@ const UpdateTodos = (props: UpdateTodo) => {
   const dispatch = useDispatch()
   return (
     <img
-      src="./icon/check.png"
+      src="./static/check.png"
       alt="trash2"
       className="icon"
       onClick={() =>
