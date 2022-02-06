@@ -5,7 +5,8 @@ import { RootState } from "../../redux/store"
 import DeleteTodo from "../utils/delete"
 import UpdateTodos from "../utils/update"
 import TodoDetails, { TodoModal } from "./todoDetails"
-
+//@ts-ignore
+import Edit from "../../images/edit.png"
 export enum TodoStatus {
   COMPLETED = "COMPLETED",
   PENDING = "PENDING",
@@ -65,8 +66,8 @@ const Todo = (props: TodoInterface) => {
       <div className="flex">
         <DeleteTodo id={id} />
         <img
-          src="./static/edit.png"
-          alt="trash2"
+          src={Edit}
+          alt="edit"
           className="icon"
           onClick={() => setModal(true)}
         />
