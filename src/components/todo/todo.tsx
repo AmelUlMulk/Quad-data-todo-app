@@ -1,20 +1,37 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { useState } from "react"
+import { useSelector } from "react-redux"
+import { RootState } from "../../redux/store"
+import DeleteTodo from "../utils/delete"
+import UpdateTodos from "../utils/update"
 import TodoDetails, { TodoModal } from "./todoDetails"
 
+export enum TodoStatus {
+  COMPLETED = "COMPLETED",
+  PENDING = "PENDING",
+}
 export interface TodoInterface {
-  text: string
-  id: number
+  text?: string
+  id?: number
+  status?: TodoStatus
 }
 
 const Todo = (props: TodoInterface) => {
-  const { text, id } = props
+  const { text, id, status } = props
+  const [color, setColor] = useState<string>("blue")
+  const todos = useSelector((state: RootState) => state.todos.todos)
+
+  useEffect(() => {
+    setColor(status === TodoStatus.COMPLETED ? "green" : "blue")
+    console.log("this is color", color)
+  }, [todos])
 
   const [modalState, setModalState] = useState<TodoModal>({
     show: false,
     edit: false,
     text,
     id,
+    status,
   })
 
   function setModal(edit: boolean, show: boolean = true) {
@@ -23,24 +40,30 @@ const Todo = (props: TodoInterface) => {
       show,
       edit,
       id,
+      status,
     })
   }
 
   return (
-    <div className="todo">
+    <div
+      className="todo"
+      style={{
+        border: `1px solid ${color}`,
+      }}
+    >
       <div className="flex">
-        <img src="./icon/check.png" alt="completed" className="icon" />
-        {text.length < 70 ? (
+        <UpdateTodos text={text} id={id} status={status} />
+        {text.length < 50 ? (
           <p>{text}</p>
         ) : (
           <p onClick={() => setModal(false)}>{`${text.substring(
             0,
-            80
+            50
           )} ... `}</p>
         )}
       </div>
       <div className="flex">
-        <img src="./icon/trash.png" alt="trash2" className="icon" />
+        <DeleteTodo id={id} />
         <img
           src="./icon/edit.png"
           alt="trash2"
@@ -54,6 +77,7 @@ const Todo = (props: TodoInterface) => {
         show={modalState.show}
         edit={modalState.edit}
         close={setModal}
+        status={status}
       />
     </div>
   )

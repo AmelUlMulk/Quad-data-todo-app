@@ -1,4 +1,9 @@
-import React from "react"
+import React, { useEffect } from "react"
+import { useSelector } from "react-redux"
+import { RootState } from "../../redux/store"
+import DeleteTodo from "../utils/delete"
+import UpdateTodos from "../utils/update"
+
 import AddTodo from "./addTodo"
 import { TodoInterface } from "./todo"
 
@@ -11,6 +16,12 @@ export interface TodoModal extends TodoInterface {
 const TodoDetails = (props: TodoModal) => {
   const { edit, text, show, close, id } = props
 
+  const todos = useSelector((state: RootState) => state.todos.todos)
+
+  useEffect(() => {
+    close(false, false)
+  }, [todos])
+
   return (
     <div className={`todo-modal ${show ? "flex" : "hidden"}`}>
       <div className="modal-content">
@@ -19,8 +30,8 @@ const TodoDetails = (props: TodoModal) => {
         </p>
         {!edit ? <p>{text}</p> : <AddTodo text={text} id={id} />}
         <div className="flex">
-          <img src="./icon/trash.png" alt="trash2" className="icon" />
-          <img src="./icon/check.png" alt="trash2" className="icon" />
+          <DeleteTodo id={id} />
+          <UpdateTodos text={text} id={id} />
         </div>
       </div>
     </div>

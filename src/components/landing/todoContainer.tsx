@@ -1,28 +1,14 @@
-import React from "react"
-import Todo, { TodoInterface } from "../todo/todo"
-const sampleData: TodoInterface[] = [
-  {
-    text: "this is a todo to test the functionality of the app",
-    id: 2,
-  },
-  {
-    text: "this is a todo ",
-    id: 2,
-  },
-  {
-    text: "this is a todo to test the functionality of the app 32 jkljdaslkdjs we are gonna make this so long so you may notice whats up",
-    id: 2,
-  },
-  {
-    text: "this is a todo to test the functionality of the app dajsdklasjdkl",
-    id: 2,
-  },
-]
+import React, { useEffect } from "react"
+import { RootState } from "../../redux/store"
+import { useSelector } from "react-redux"
+import Todo from "../todo/todo"
 const TodoContainer = () => {
+  const todos = useSelector((state: RootState) => state.todos.todos)
+  useEffect(() => {}, [todos])
   return (
     <div className="todo-container ">
-      {sampleData.map(item => (
-        <Todo text={item.text} id={item.id} />
+      {todos.map(item => (
+        <Todo text={item.text} id={item.id} status={item.status} />
       ))}
     </div>
   )

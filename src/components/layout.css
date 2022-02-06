@@ -56,7 +56,6 @@
   display: none;
 }
 .todo {
-  border: 1px solid #3476f7;
   border-radius: 10rem;
   display: flex;
   justify-content: space-between;
@@ -140,4 +139,10 @@
   margin: 0.5rem;
   color: #3476f7;
   cursor: pointer;
+}
+/* Responciveness */
+@media only screen and (max-width: 800px) and (min-width: 300px) {
+  .content {
+    width: 90%;
+  }
 }

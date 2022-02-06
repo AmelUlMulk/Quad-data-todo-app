@@ -1,18 +1,21 @@
 import React, { useEffect, useState } from "react"
-import { TodoInterface } from "./todo"
-
-interface Add {
-  data?: TodoInterface
-}
+import { TodoInterface, TodoStatus } from "./todo"
+import { useDispatch } from "react-redux"
+import { addTodo, updateTodo } from "../../redux/todoReducer"
 
 const AddTodo = (props?: TodoInterface) => {
-  const { text: text2, id } = props
-
+  const { text: text2, id, status } = props
+  const dispatch = useDispatch()
   const [text, setText] = useState<string>(text2 ? text2 : "")
 
   function formControl(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     console.log(text)
+    if (id) {
+      dispatch(updateTodo({ text, id, status }))
+    } else {
+      dispatch(addTodo({ text, id: Math.random(), status: TodoStatus.PENDING }))
+    }
     setText("")
   }
 
@@ -29,7 +32,7 @@ const AddTodo = (props?: TodoInterface) => {
         value={text}
       />
       <button className="add" type="submit">
-        {text2 ? "ok" : "x"}
+        {text2 ? "ok" : "+"}
       </button>
     </form>
   )
