@@ -2,6 +2,7 @@ import React, { useEffect } from "react"
 import { useSelector } from "react-redux"
 import { RootState } from "../../redux/store"
 import DeleteTodo from "../utils/delete"
+import Tooltip from "../utils/tooltip"
 import UpdateTodos from "../utils/update"
 
 import AddTodo from "./addTodo"
@@ -30,8 +31,12 @@ const TodoDetails = (props: TodoModal) => {
         </p>
         {!edit ? <p>{text}</p> : <AddTodo text={text} id={id} />}
         <div className="flex">
-          <DeleteTodo id={id} />
-          <UpdateTodos text={text} id={id} />
+          <Tooltip text="Delete">
+            <DeleteTodo id={id} />
+          </Tooltip>
+          <Tooltip text="update">
+            <UpdateTodos text={text} id={id} />
+          </Tooltip>
         </div>
       </div>
     </div>

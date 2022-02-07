@@ -25,6 +25,7 @@
 .main-header {
   color: white;
 }
+
 .flex-between {
   width: 100%;
   display: flex;
@@ -48,13 +49,12 @@
   align-items: baseline;
   height: 50%;
   overflow-y: scroll;
+  overflow-x: hidden;
   width: 80%;
   padding: 2rem 0rem;
   flex-wrap: wrap;
 }
-.todo-container::-webkit-scrollbar {
-  display: none;
-}
+
 .todo {
   border-radius: 10rem;
   display: flex;
@@ -109,7 +109,7 @@
   left: 0;
   height: 100vh;
   width: 100vw;
-  z-index: 2;
+  z-index: 12;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -141,8 +141,91 @@
   cursor: pointer;
 }
 /* Responciveness */
-@media only screen and (max-width: 800px) and (min-width: 300px) {
+@media only screen and (max-width: 1000px) and (min-width: 300px) {
   .content {
     width: 90%;
   }
+}
+
+.tooltip {
+  display: none;
+  position: absolute;
+  z-index: 10;
+
+  color: black;
+  background: white;
+  border-radius: 1rem;
+  padding: 0.5rem;
+}
+
+.container-tip:hover .tooltip {
+  display: block;
+  justify-content: center;
+  align-items: center;
+}
+/* tooltipchangfe */
+.tooltip {
+  position: relative;
+  display: block;
+  background: inherit;
+  display: flex;
+  justify-content: center;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 100px;
+  background-color: white;
+  color: black;
+  text-align: center;
+  border-radius: 6px;
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  top: -12px !important;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.nav a {
+  margin: 0.1rem;
+  background-color: white;
+  text-decoration: none;
+  padding: 0.2rem;
+  border-radius: 20rem;
+}
+.nav a:hover {
+  background-color: #3476f7;
+  color: black;
+}
+
+/* ScrollBarCustom */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #3476f7;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #3476f7;
+}
+
+.active {
+  background-color: yellow !important;
 }

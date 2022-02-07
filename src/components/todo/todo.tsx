@@ -7,9 +7,11 @@ import UpdateTodos from "../utils/update"
 import TodoDetails, { TodoModal } from "./todoDetails"
 //@ts-ignore
 import Edit from "../../images/edit.png"
+import Tooltip from "../utils/tooltip"
 export enum TodoStatus {
   COMPLETED = "COMPLETED",
   PENDING = "PENDING",
+  All = "ALL",
 }
 export interface TodoInterface {
   text?: string
@@ -20,12 +22,12 @@ export interface TodoInterface {
 const Todo = (props: TodoInterface) => {
   const { text, id, status } = props
   const [color, setColor] = useState<string>("blue")
-  const todos = useSelector((state: RootState) => state.todos.todos)
-
+  const data = useSelector((state: RootState) => state.todos)
+  const { todos, filter } = data
   useEffect(() => {
-    setColor(status === TodoStatus.COMPLETED ? "green" : "blue")
+    setColor(status === TodoStatus.COMPLETED ? "green" : "red")
     console.log("this is color", color)
-  }, [todos])
+  }, [todos, filter])
 
   const [modalState, setModalState] = useState<TodoModal>({
     show: false,
@@ -49,11 +51,13 @@ const Todo = (props: TodoInterface) => {
     <div
       className="todo"
       style={{
-        border: `1px solid ${color}`,
+        background: `${color}`,
       }}
     >
       <div className="flex">
-        <UpdateTodos text={text} id={id} status={status} />
+        <Tooltip text="Complete">
+          <UpdateTodos text={text} id={id} status={status} />
+        </Tooltip>
         {text.length < 50 ? (
           <p>{text}</p>
         ) : (
@@ -64,13 +68,18 @@ const Todo = (props: TodoInterface) => {
         )}
       </div>
       <div className="flex">
-        <DeleteTodo id={id} />
-        <img
-          src={Edit}
-          alt="edit"
-          className="icon"
-          onClick={() => setModal(true)}
-        />
+        <Tooltip text="delete">
+          {" "}
+          <DeleteTodo id={id} />
+        </Tooltip>
+        <Tooltip text="edit">
+          <img
+            src={Edit}
+            alt="edit"
+            className="icon"
+            onClick={() => setModal(true)}
+          />
+        </Tooltip>
       </div>
       <TodoDetails
         text={text}
